@@ -216,3 +216,7 @@ footer {
   padding: 20px;
   color: #fff;
 }
+
+.error_messages {
+    color: #f44336;
+}

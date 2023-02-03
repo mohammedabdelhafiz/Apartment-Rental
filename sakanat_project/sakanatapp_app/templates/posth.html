@@ -15,7 +15,7 @@
     
 </script>
 <div class="w3-container" style="margin-top:1%; margin-left: 10%; margin-right: 10%; margin-bottom: 1%;">
-    <h2 style="text-align: center;"><b>Post ad for Apartment</b></h2>
+    <h2 style="text-align: center;"><b>Post ad for Chalet</b></h2>
 
 
      {% if messages %}
@@ -28,10 +28,10 @@
 
 
 
-    <a href="#"><button style="float: right;" type="submit" class="btn btn-success btn-sm">Post ad for Chalet</button></a>
+    <a href="#"><button style="float: right;" type="submit" class="btn btn-success btn-sm">Post ad for Apartment</button></a>
     <br>
     <div id = "id1">
-        <form action="/add_apartment" method="post" enctype="multipart/form-data">
+        <form action="/add_chalet" method="post" enctype="multipart/form-data">
             <div class="container">
                 {% csrf_token %}
                 <label for="name"><b>Location</b></label>
@@ -52,6 +52,8 @@
                 <input style="width: 100%; height: 50px;margin-bottom: 10px;" type="number"  placeholder="enter number of bedroom" name="bedroom" required>
                 <label for="pass"><b>AC</b></label>
                 <input type="text" placeholder="Yes/No" name="AC">
+                <label for="pool"><b>Pool</b></label>
+                <input type="text" placeholder="Yes/No" name="pool">
                 <label for= "comment"><b>Description</b></label><br>
                 <textarea style="width: 100%" name="desc" ></textarea> <br>
                 <label for="image"><b>Upload Picture</b></label><br>

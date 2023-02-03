@@ -2,20 +2,27 @@
 {%load static%}
 
 {%block button%}
-<a class="btn btn-success navbar-signup-btn-sm" href="/register" style="margin-left: 1em;"><strong>Sign Up</strong></a> 
+<a class="btn btn-success navbar-signup-btn-sm" href="/register_page" style="margin-left: 1em;"><strong>Sign Up</strong></a> 
 {%endblock%}
 
 {%block body%}
 <div class="w3-container" style="margin-top:1%; margin-left: 10%; margin-right: 10%;">
+
+
+
     <h2>Login</h2>
    
+
     <form class="modal-content animate" action="/login" method="post">
-           
         {% csrf_token %}
         <div class="container">
-            {% if msg %}
-                <p style="color: red">{{ msg }}</p>
-            {%endif%}
+            <div class="error_messages">
+                {% for message in messages %}
+                <ul>
+                <li class="error_message">{{ message }}</li>  
+                </ul>
+                {% endfor %}
+                </div> 
             <label for="uname"><b>Email</b></label>
             <input type="text" placeholder="Enter Username" name="email" required>
             <label for="psw"><b>Password</b></label>

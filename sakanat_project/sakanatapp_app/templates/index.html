@@ -20,18 +20,25 @@
 {% endblock %}
 {%block body%}
 <div>
+    <div class="error_messages">
+        {% for message in messages %}
+        <ul>
+            <li class="error_message">{{ message }}</li>  
+        </ul>
+        {% endfor %}
+    </div> 
 <div class="jumbotron text-center" style="margin-bottom:0;" >
     <h1>Sakanat</h1>
-    <marquee behavior="" direction="right">Live in your dream house</marquee> 
+    <marquee behavior="" direction="right">Find your forever Or your for now <br><br>chalets and apartments for rent that fit your timeline. </marquee> 
 </div>
 <div class="w3-container w3-home-container">
-    {% if room %}
+    {% if apartments %}
     <h5 class="my-4" style="text-align: center;"> Apartment - Recommended for You.</h5>
     <div class="w3-row-padding">
         <div class="col carousel slide my-3" data-ride="carousel">
             <div class="carousel-inner no-padding">
                 <div class="carousel-item active">
-                    {% for i in room.0%}
+                    {% for i in apartments.0 %}
                     <div class="w3-third w3-container w3-margin-bottom">
                         <div class="card" style=" background-color: #e9ecef;">
                             <img src='{{i.img.url}}' class="w3-hover-opacity" style="height: 250px; width: 100%" alt="...">
@@ -44,9 +51,9 @@
                                     </span>
                                 </h5>
                                 <p class="card-text">{{i.desc|slice:"0:20"}}...</p>
-                                <p>{{i.location}}, {{i.city}}, {{i.state}}</p>
-                                <form action="/descr"  style="margin-bottom: 5px;">
-                                    <button name="id" value="{{i.room_id}}" style="background-color: grey"> Quick view</button>
+                                <p>{{i.location}}, {{i.city}}</p>
+                                <form action="/{{i.id}}"  style="margin-bottom: 5px;">
+                                    <button name="id" value="{{i.apartment_id}}" style="background-color: grey"> Quick view</button>
                                 </form>
                                 <!-- <a href="descr/{{i.room_id}}">
                                     <button style="background-color: grey"> Quick view</button>
@@ -54,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and forloop.counter < room.2 %}
+                    {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and forloop.counter < apartments.2 %}
                 </div>
                 <div class="carousel-item">
                     {% endif %}
@@ -65,13 +72,13 @@
         </a>
     </div>
     {% endif %}
-    {% if house %}
-    <h5 class="my-4" style="text-align: center;"> Houses - Recommended for You.</h5>
+    {% if chalet %}
+    <h5 class="my-4" style="text-align: center;"> Chalets - Recommended for You.</h5>
     <div class="w3-row-padding">
         <div class="col carousel slide my-3" data-ride="carousel">
             <div class="carousel-inner no-padding">
                 <div class="carousel-item active">
-                    {% for i in house.0%}
+                    {% for i in chalet.0%}
                     <div class="w3-third w3-container w3-margin-bottom">
                         <div class="card" style=" background-color: #e9ecef;">
                             <img src='{{i.img.url}}' class="w3-hover-opacity" style="height: 250px; width: 100%" alt="...">
@@ -84,14 +91,14 @@
                                     </span>
                                 </h5>
                                 <p class="card-text">{{i.desc|slice:"0:20"}}...</p>
-                                <p>{{i.location}}, {{i.city}}, {{i.state}}</p>
-                                <form action="/descr"  style="margin-bottom: 5px;">
-                                    <button name="id" value="{{i.house_id}}" style="background-color: grey"> Quick view</button>
-                                </form>
+                                <p>{{i.location}}, {{i.city}}</p>
+                                    <a href="/chalet/{{i.id}}">
+                                    <button name="id" value="{{i.chalet_id}}" style="background-color: grey"> Quick view</button>
+                                    </a>
                             </div>
                         </div>
                     </div>
-                    {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and forloop.counter < house.2 %}
+                    {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and forloop.counter < chalet.2 %}
                 </div>
                 <div class="carousel-item">
                     {% endif %}

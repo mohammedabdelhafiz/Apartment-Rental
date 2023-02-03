@@ -28,18 +28,17 @@ class UserManager(models.Manager):
             errors['Phone'] = "Phone Number  should be at least 10 numbers "
         return errors
 
-    def validate_login(self, postData):
-        errors = {}
-        if len(User.objects.filter(email = postData['email'])):
-            user = User.objects.get(email = postData['email'])
-            if bcrypt.checkpw(postData['pass'].encode(), user.password):
-                return errors
-            else:
-                errors['login'] = "Email OR Password incorrect"
-                return errors
+    def login_validator(self,postData):
+        errors={}
+        my_user=User.objects.filter(email=postData['email'])
+        if len(my_user)==0:
+            errors['email']=f"this email {postData['email']} have no account, please enter correct email or go to sign up to create a new user"
         else:
-            errors['login'] = "Email OR Password incorrect"
-            return errors
+            real_password=my_user[0].password
+            if  not bcrypt.checkpw(postData['password'].encode(), real_password.encode()):
+                errors['password']="incorrect password please try again"
+        return errors
+
 
 class User(models.Model):
 
@@ -109,7 +108,57 @@ class Message(models.Model):
 
 
 def create_user(name ,email , location , city , phone_number, password):
-    return User.objects.create(name=name , email=email, location=location , phone_number=phone_number, password=password)
+    return User.objects.create(name=name , email=email, location=location , city=city, phone_number=phone_number, password=password)
+
+def create_apartment(location , city  , area , user ,  cost , hall , kitchen , balcony , bedrooms ,AC , desc , img ):
+    return Apartment.objects.create(location=location , city= city  ,area=area ,user=user, cost=cost , hall=hall , kitchen=kitchen , balcony=balcony , bedrooms=bedrooms,AC=AC , desc=desc , img = img )
+
+
+def create_chalet(location , city  , area , user ,  cost , hall , kitchen , balcony , bedrooms ,AC, pool , desc , img ):
+    return Chalet.objects.create(location=location , city= city  ,area=area ,user=user, cost=cost , hall=hall , kitchen=kitchen , balcony=balcony , bedrooms=bedrooms,AC=AC,pool=pool , desc=desc , img = img )
+
+
+
+
 
 def get_users_list(email):
     return User.objects.filter(email=email)
+
+def get_user_id(id):
+    user =  User.objects.get(id=id)
+    return user
+
+def logged_user(email):
+    my_users=User.objects.filter(email=email)
+    my_user=my_users[0]
+    return my_user.id
+
+
+def update(location , city  , area , user ,  cost , hall , kitchen , balcony , bedrooms ,AC , desc , apartment_id ):
+    my_apartment=Apartment.objects.get(id=apartment_id)
+    my_apartment.location=location
+    my_apartment.city=city
+    my_apartment.area=area
+    my_apartment.user=user
+    my_apartment.cost=cost
+    my_apartment.hall=hall
+    my_apartment.kitchen=kitchen
+    my_apartment.balcony=balcony
+    my_apartment.bedrooms=bedrooms
+    my_apartment.AC=AC
+    my_apartment.desc=desc
+    my_apartment.save()
+
+def delete_apartment(apartment_id):
+    apartment = Apartment.objects.get(id=apartment_id)
+    apartment.delete()
+
+
+
+
+
+
+
+
+
+

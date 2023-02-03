@@ -35,26 +35,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 2em;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/index/">Home
+                        <a class="nav-link" href="/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/home/">Explore</a>
+                        <a class="nav-link" href="/home">Explore</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about/">About us</a>
+                        <a class="nav-link" href="/about">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact/">Contact us</a>
+                        <a class="nav-link" href="/contact_page">Contact us</a>
                     </li>
                 </ul>
                 {%endblock%}
                 {% block button %}
-                <!-- <a class="btn btn-outline-success navbar-profile-btn" href="/profile" style="color: white;"><strong>Profile</strong></a>
-                <a class="btn btn-danger navbar-logout-btn" href="/logout" style="margin-left: 1em;"><strong>Logout</strong></a> -->
-                <a class="btn btn-outline-success navbar-login-btn-sm" href="/login" style="color: white;"><strong>Login</strong></a>
-                <a class="btn btn-success navbar-signup-btn-sm" href="/register" style="margin-left: 1em;"><strong>Sign Up</strong></a>
+                {% if not 'current_user_id' in request.session %}
+                <a class="btn btn-outline-success navbar-login-btn-sm" href="/login_page" style="color: white;"><strong>Login</strong></a>
+                <a class="btn btn-success navbar-signup-btn-sm" href="/register_page" style="margin-left: 1em;"><strong>Sign Up</strong></a>
+                {% else %}
+                <a class="btn btn-outline-success navbar-profile-btn" href="/success" style="color: white;"><strong>Profile</strong></a>
+                <a class="btn btn-danger navbar-logout-btn" href="/logout" style="margin-left: 1em;"><strong>Logout</strong></a>
+                {% endif %}
                 {% endblock %}
             </div>
         </nav>
